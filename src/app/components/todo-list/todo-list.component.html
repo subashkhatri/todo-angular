@@ -1,33 +1,47 @@
-<img src="" alt="" class="logo">
+<img src="https://jaison.info/images/projects/todotab/logo.png" alt="" class="logo">
 
-<input type="text" class="todo-input" placeholder="Your today's todo-list">
+<input 
+  type="text" 
+  class="todo-input" 
+  placeholder="Your today's todo-list" 
+  [(ngModel)]="todoTitle" 
+  (keyup.enter)="addTodo()" >
 
-
-<div 
-  class="todo-item"
-  *ngFor="let todo of todos">
-  <div class="todo-item-left">
-    <input type="checkbox" v-model="todo.completed">
-    <div class="todo-item-label">
-      {{ todo.title }}
-    </div>
-  </div>
-  <div class="remove-item">
-    &times;
-  </div>
-</div>
+  <todo-item
+    *ngFor="let todo of todosFiltered()"
+    [todo]="todo"
+    (checkedItem)="doneEdit($event)"
+    (doubleClickedItem)="editTodo($event)"
+    (blurredItem)="doneEdit($event)"
+    (enteredItem)="doneEdit($event)"
+    (cancelledItem)="cancelEdit($event)"
+    (deletedItem)="deleteTodo($event)"
+></todo-item>
 <div class="extra-container">
-  <div><label> <input type="checkbox"> Check All</label></div>
-  <div>4 items left</div>
+  <div><label> 
+    <input 
+      type="checkbox"
+      (change)="checkAllTodos()"> Check All</label></div>
+  <div>{{ remaining() }} left from list</div>
 </div>
 
 <div class="extra-container">
   <div>
-    <button class="active">All</button>
-    <button>Active</button>
-    <button>Completed</button>
+    <button
+      [ngClass]="{'active': filter === 'all'}"
+      (click)="filter='all'">
+      All
+    </button>
+    <button
+      [ngClass]="{'active': filter === 'active'}"
+      (click)="filter='active'">Active</button>
+    <button
+      [ngClass]="{'active': filter === 'completed'}"
+      (click)="filter='completed'">Completed</button>
   </div>
-  <div>
-    <button>Clear Completed</button>
+  <div
+  *ngIf="atLeastOneCompleted()">
+    <button
+    (click)="clearCompleted()">Clear Completed</button>
   </div>
 </div>
