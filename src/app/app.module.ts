@@ -7,11 +7,13 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { FormsModule } from '@angular/forms';
 import { AutofocusFixModule } from 'ngx-autofocus-fix'; // <--- new code
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule,
