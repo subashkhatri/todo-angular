@@ -32,7 +32,7 @@ export class TodoItemComponent implements OnInit {
     this.cancelledItem.emit(todo);
   }
 
-  deleteTodo(todo: Todo): void {
+  deleteTodo(todo: number): void {
     this.deletedItem.emit(todo);
   }
 
